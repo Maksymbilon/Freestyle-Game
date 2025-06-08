@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jump for Ukraine</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    #jumper {
+      transition: transform 0.4s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-blue-100 text-gray-800">
+  <div class="min-h-screen flex flex-col items-center justify-center text-center p-4">
+    <h1 class="text-3xl font-bold mb-4">🎿 Jump for Ukraine!</h1>
+    <p class="mb-6 text-lg">Click the jumper to launch! See how high you can go!</p>
+
+    <div class="relative h-64 w-full max-w-sm bg-white border-2 border-blue-300 rounded-lg overflow-hidden">
+      <img id="jumper" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Oleksandr_Abramenko_2018.jpg/200px-Oleksandr_Abramenko_2018.jpg" alt="Jumper" class="w-24 h-24 rounded-full mx-auto mt-40 cursor-pointer shadow-lg">
+    </div>
+
+    <div id="result" class="mt-6 text-xl font-semibold hidden"></div>
+
+    <div class="mt-4 space-x-4">
+      <button onclick="resetJump()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Try Again</button>
+      <a href="https://www.paypal.com/donate/?hosted_button_id=YAL3BE24Q8LW6" target="_blank" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded">Donate via PayPal</a>
+    </div>
+  </div>
+
+  <script>
+    const jumper = document.getElementById('jumper');
+    const result = document.getElementById('result');
+
+    let jumping = false;
+
+    jumper.addEventListener('click', () => {
+      if (jumping) return;
+      jumping = true;
+
+      const height = Math.floor(Math.random() * 30) + 10; // random jump height 10–40m
+      jumper.style.transform = `translateY(-${height * 4}px)`;
+
+      setTimeout(() => {
+        result.textContent = `Wow! You reached ${height} meters! Ready to support real athletes in Ukraine?`;
+        result.classList.remove('hidden');
+        jumping = false;
+      }, 500);
+    });
+
+    function resetJump() {
+      jumper.style.transform = 'translateY(0)';
+      result.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
